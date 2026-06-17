@@ -43,3 +43,9 @@ next-env.d.ts
 # local artifacts
 .playwright-mcp/
 *.jpeg
+
+# Cloudflare / OpenNext
+.open-next/
+.dev.vars
+cloudflare-env.d.ts
+.wrangler/
