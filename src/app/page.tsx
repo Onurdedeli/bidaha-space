@@ -1,73 +1,100 @@
 import Link from "next/link";
-import { products, experiences } from "@/lib/data";
+import { products, getProductsByArtist } from "@/lib/data";
 import { getActiveDrops } from "@/lib/drops-db";
 import { artists } from "@/lib/artists";
-import { ProductCard, ExperienceCard } from "@/components/cards";
+import { ProductCard } from "@/components/cards";
+import { ArtistAvatar } from "@/components/artist-avatar";
 import { Section, Badge, ButtonLink } from "@/components/ui";
 import { Countdown } from "@/components/countdown";
 import { formatCount } from "@/lib/format";
 
 export default async function Home() {
-  const featuredExp = experiences.filter((e) => e.featured);
-  const featuredProducts = products.filter((p) => p.featured);
+  const featuredProducts = products.filter((p) => p.featured).slice(0, 9);
   const drops = await getActiveDrops();
+  const collectionArtist = artists[0];
+  const collection = getProductsByArtist(collectionArtist.name);
 
   return (
     <>
       {/* HERO */}
       <section className="mesh-bg relative overflow-hidden border-b border-border">
-        <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-28">
+        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20">
           <div className="max-w-3xl">
-            <Badge tone="accent">🎵 Türk müziğinin merch & deneyim pazarı</Badge>
+            <Badge tone="brand">★ Lisanslı sanatçı merch pazarı</Badge>
             <h1 className="mt-5 text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-6xl">
-              Sevdiğin sanatçıyla
+              Sevdiğin sanatçının
               <br />
-              <span className="bg-gradient-to-r from-brand-soft to-accent bg-clip-text text-transparent">
-                gerçek bir bağ kur.
+              <span className="bg-gradient-to-r from-brand to-accent bg-clip-text text-transparent">
+                merch&apos;ini sen tasarla.
               </span>
             </h1>
             <p className="mt-5 max-w-xl text-lg text-muted">
-              Tişörtten şapkaya merch, sanatçıyla başbaşa yemekten sevdiğine özel doğum günü
-              mesajına deneyimler. Konser ve çıkış anlarında açılan sınırlı pencerelerle — aidiyet,
-              an ve anı bir arada.
+              Sanatçıyı seç, ürünü seç, beden–renk–modeli kendine göre ayarla. Hayran, sanatçı ve
+              üretim tek bir köprüde — abonelik yok, yalnızca aldığın için ödersin.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <ButtonLink href="/deneyimler" variant="accent" size="lg">
-                Deneyimleri keşfet
+              <ButtonLink href="/magaza" variant="accent" size="lg">
+                Mağazayı keşfet
               </ButtonLink>
-              <ButtonLink href="/magaza" variant="outline" size="lg">
-                Mağazaya göz at
+              <ButtonLink href="/sanatcilar" variant="outline" size="lg">
+                Sanatçılar
               </ButtonLink>
             </div>
-            <div className="mt-10 flex flex-wrap gap-x-8 gap-y-3 text-sm text-muted">
-              <Stat value={`${artists.length}+`} label="doğrulanmış sanatçı" />
-              <Stat value="300B+" label="topluluk üyesi" />
-              <Stat value="An bazlı" label="konser & çıkış pencereleri" />
-            </div>
+          </div>
+
+          {/* sanatçı şeridi */}
+          <div className="mt-12 flex flex-wrap gap-5">
+            {artists.map((a) => (
+              <Link key={a.slug} href={`/sanatci/${a.slug}`} className="group flex flex-col items-center gap-2">
+                <ArtistAvatar artist={a} className="h-16 w-16 text-2xl transition-transform group-hover:scale-105" />
+                <span className="text-xs font-medium text-muted group-hover:text-foreground">{a.name}</span>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ARTIST MARQUEE */}
-      <div className="overflow-hidden border-b border-border bg-bg-soft py-4">
-        <div className="flex w-max animate-marquee gap-3">
-          {[...artists, ...artists].map((a, i) => (
-            <Link
-              key={i}
-              href={`/sanatci/${a.slug}`}
-              className="flex items-center gap-2 whitespace-nowrap rounded-full border border-border bg-surface px-4 py-2 text-sm hover:border-brand/50"
-            >
-              <span>{a.emoji}</span>
-              <span className="font-semibold">{a.name}</span>
-              <span className="text-muted">· {formatCount(a.followers)}</span>
-            </Link>
-          ))}
+      {/* TRENDING NOW + TOP ARTISTS */}
+      <Section
+        title="Trend ürünler"
+        subtitle="Sanatçı onaylı, sınırlı üretim. Şu an en çok ilgi gören merch."
+        action={
+          <ButtonLink href="/magaza" variant="ghost" size="sm" className="hidden sm:inline-flex">
+            Tümü →
+          </ButtonLink>
+        }
+      >
+        <div className="grid gap-8 lg:grid-cols-[1fr_240px]">
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
+            {featuredProducts.map((p) => (
+              <ProductCard key={p.id} product={p} />
+            ))}
+          </div>
+
+          <aside className="order-first lg:order-last">
+            <div className="rounded-[var(--radius-card)] border border-border bg-surface p-5">
+              <h3 className="mb-4 text-sm font-bold uppercase tracking-wide text-muted">Top Sanatçılar</h3>
+              <ul className="space-y-3">
+                {artists.map((a) => (
+                  <li key={a.slug}>
+                    <Link href={`/sanatci/${a.slug}`} className="group flex items-center gap-3">
+                      <ArtistAvatar artist={a} className="h-11 w-11 text-lg" ring={false} />
+                      <div className="min-w-0">
+                        <div className="truncate text-sm font-semibold group-hover:text-brand">{a.name}</div>
+                        <div className="text-xs text-muted">{formatCount(a.followers)} takipçi</div>
+                      </div>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </aside>
         </div>
-      </div>
+      </Section>
 
       {/* ANLAR / DROPS */}
       <Section
-        title="Anlar — şu an açık pencereler"
+        title="Anlar — açık pencereler"
         subtitle="Konser ve çıkışlar etrafında açılan sınırlı drop'lar. Pencere kapanınca fırsat da kapanır."
         action={
           <ButtonLink href="/anlar" variant="ghost" size="sm" className="hidden sm:inline-flex">
@@ -82,7 +109,7 @@ export default async function Home() {
               <Link
                 key={d.id}
                 href={d.href}
-                className="group flex flex-col gap-3 rounded-[var(--radius-card)] border border-border bg-surface p-5 transition-colors hover:border-accent/40"
+                className="group flex flex-col gap-3 rounded-[var(--radius-card)] border border-border bg-surface p-5 transition-all hover:-translate-y-0.5 hover:border-accent/40 hover:shadow-lg"
               >
                 <div className="flex items-center justify-between">
                   <Badge tone={d.kind === "ozel" ? "brand" : "accent"}>
@@ -90,7 +117,7 @@ export default async function Home() {
                   </Badge>
                   <Countdown endsAt={d.endsAt} compact />
                 </div>
-                <h3 className="font-semibold leading-snug group-hover:text-accent">{d.title}</h3>
+                <h3 className="font-semibold leading-snug group-hover:text-brand">{d.title}</h3>
                 <p className="text-sm text-muted">{d.context}</p>
                 <div className="mt-auto">
                   <div className="mb-1 flex justify-between text-xs text-muted">
@@ -110,78 +137,51 @@ export default async function Home() {
         </div>
       </Section>
 
-      {/* DENEYIMLER */}
-      <Section
-        title="Unutulmaz deneyimler"
-        subtitle="Sahnenin değil, hayatın içinden anlar. Sanatçıyla yüz yüze ya da ekrandan ekrana."
-        action={
-          <ButtonLink href="/deneyimler" variant="ghost" size="sm" className="hidden sm:inline-flex">
-            Tümü →
-          </ButtonLink>
-        }
-      >
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {featuredExp.map((e) => (
-            <ExperienceCard key={e.id} experience={e} />
-          ))}
-        </div>
-      </Section>
+      {/* KOLEKSİYON */}
+      {collection.length > 0 && (
+        <Section
+          title={`${collectionArtist.name} koleksiyonu`}
+          subtitle="Bir sanatçının tüm merch'i tek yerde."
+          action={
+            <ButtonLink href={`/sanatci/${collectionArtist.slug}`} variant="ghost" size="sm" className="hidden sm:inline-flex">
+              Sanatçı sayfası →
+            </ButtonLink>
+          }
+        >
+          <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+            {collection.slice(0, 4).map((p) => (
+              <ProductCard key={p.id} product={p} />
+            ))}
+          </div>
+        </Section>
+      )}
 
       {/* NASIL CALISIR */}
-      <Section id="nasil" title="Nasıl çalışır?" subtitle="Üç adımda sanatçına yaklaş.">
+      <Section id="nasil" title="Nasıl çalışır?" subtitle="Hayran, sanatçı ve üretim arasındaki köprü.">
         <div className="grid gap-4 md:grid-cols-3">
-          <HowStep
-            n="1"
-            title="Sanatçını seç"
-            text="Topluluğuna katıl, açılan anlardan ve sınırlı drop'lardan ilk sen haberdar ol."
-          />
-          <HowStep
-            n="2"
-            title="Merch ya da deneyim al"
-            text="Tişört ve şapkadan başbaşa yemeğe, kişiye özel mesajdan backstage'e — sana uygun olanı seç."
-          />
-          <HowStep
-            n="3"
-            title="Anı yaşa & sakla"
-            text="Ürünün kapına gelsin, deneyimin planlansın. Geriye paylaşılacak bir anı kalsın."
-          />
+          <HowStep n="1" title="Sanatçını seç" text="Sevdiğin sanatçının sayfasına git, koleksiyonunu ve açık anları keşfet." />
+          <HowStep n="2" title="Ürünü kişiselleştir" text="Kategoriyi seç, ardından beden, renk ve baskı modelini sana göre ayarla." />
+          <HowStep n="3" title="Sipariş ver, sanatçı kazansın" text="Üretim ve kargo bizden; sanatçı satışları panelden anlık takip eder." />
         </div>
       </Section>
 
-      {/* MERCH */}
-      <Section
-        title="Öne çıkan merch"
-        subtitle="Sınırlı üretim, sanatçı onaylı tasarımlar."
-        action={
-          <ButtonLink href="/magaza" variant="ghost" size="sm" className="hidden sm:inline-flex">
-            Tümü →
-          </ButtonLink>
-        }
-      >
-        <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-          {featuredProducts.map((p) => (
-            <ProductCard key={p.id} product={p} />
-          ))}
-        </div>
-      </Section>
-
-      {/* COMMUNITY CTA */}
+      {/* SANATÇI CTA */}
       <Section>
         <div className="mesh-bg relative overflow-hidden rounded-[var(--radius-card)] border border-border p-8 sm:p-14">
           <div className="relative max-w-2xl">
             <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
-              Sadece bir hayran değil, topluluğun bir parçası ol.
+              Sanatçı mısın? Satışlarını tek panelden yönet.
             </h2>
             <p className="mt-3 text-muted">
-              Sanatçının topluluğuna katıl; yeni drop'lar, kontenjanlar ve özel anlar açıldığında
-              öncelikli erişim senin olsun.
+              Merch&apos;ini yayınla, drop pencerelerini aç, gelir ve sipariş verilerini gerçek zamanlı gör.
+              Menajerin ve ekibin de aynı panele erişebilir.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
-              <ButtonLink href="/sanatcilar" variant="accent" size="lg">
-                Sanatçıları gör
+              <ButtonLink href="/panel" variant="accent" size="lg">
+                Sanatçı paneline gir
               </ButtonLink>
-              <ButtonLink href="/anlar" variant="outline" size="lg">
-                Açık anlara bak
+              <ButtonLink href="/sanatcilar" variant="outline" size="lg">
+                Sanatçıları gör
               </ButtonLink>
             </div>
           </div>
@@ -191,19 +191,10 @@ export default async function Home() {
   );
 }
 
-function Stat({ value, label }: { value: string; label: string }) {
-  return (
-    <div>
-      <div className="text-lg font-bold text-foreground">{value}</div>
-      <div className="text-xs">{label}</div>
-    </div>
-  );
-}
-
 function HowStep({ n, title, text }: { n: string; title: string; text: string }) {
   return (
     <div className="rounded-[var(--radius-card)] border border-border bg-surface p-6">
-      <div className="grid h-10 w-10 place-items-center rounded-full bg-brand/15 text-lg font-bold text-brand-soft">
+      <div className="grid h-10 w-10 place-items-center rounded-full bg-brand/10 text-lg font-bold text-brand">
         {n}
       </div>
       <h3 className="mt-4 text-lg font-semibold">{title}</h3>

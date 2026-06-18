@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { EmailCapture } from "./email-capture";
+import { SITE_NAME } from "@/lib/site";
 
 export function Footer() {
   return (
@@ -10,30 +11,31 @@ export function Footer() {
       <div className="mx-auto grid max-w-7xl gap-8 px-4 py-12 sm:px-6 md:grid-cols-4">
         <div>
           <Link href="/" className="flex items-center gap-2 font-bold">
-            <span className="grid h-8 w-8 place-items-center rounded-lg bg-brand text-white">B</span>
+            <span className="grid h-8 w-8 place-items-center rounded-lg bg-gradient-to-br from-brand to-accent text-white">
+              ★
+            </span>
             <span className="text-lg">
-              bidaha<span className="text-accent">space</span>
+              SuperStar<span className="text-brand"> Lab</span>
             </span>
           </Link>
           <p className="mt-3 max-w-xs text-sm text-muted">
-            Türk müziğinde sanatçı ve hayranı buluşturan pazar yeri. Merch, deneyim ve topluluk —
-            an bazlı, gerçek bağ.
+            Sanatçı, hayran ve üretim arasındaki köprü. Sevdiğin sanatçının lisanslı merch&apos;ini
+            seç, kişiselleştir, satın al.
           </p>
         </div>
         <FooterCol
           title="Keşfet"
           links={[
             ["Mağaza", "/magaza"],
-            ["Deneyimler", "/deneyimler"],
             ["Sanatçılar", "/sanatcilar"],
             ["Anlar & Droplar", "/anlar"],
           ]}
         />
         <FooterCol
-          title="Topluluk"
+          title="Sanatçılar için"
           links={[
+            ["Sanatçı Paneli", "/panel"],
             ["Nasıl çalışır?", "/#nasil"],
-            ["Sanatçı ol", "/sanatcilar"],
             ["Sepetim", "/sepet"],
           ]}
         />
@@ -47,7 +49,7 @@ export function Footer() {
         />
       </div>
       <div className="border-t border-border px-4 py-5 text-center text-xs text-muted sm:px-6">
-        © {2026} Bidahaspace. Tüm hakları saklıdır. Bu bir demo platformudur.
+        © {2026} {SITE_NAME}. Tüm hakları saklıdır. Bu bir demo platformudur.
       </div>
     </footer>
   );

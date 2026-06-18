@@ -28,6 +28,8 @@ export interface Product {
   sizes?: ProductVariant[];
   /** color options */
   colors?: ProductVariant[];
+  /** model/baskı tasarımı seçenekleri (hiper-kişiselleştirme) */
+  models?: ProductVariant[];
   rating: number;
   reviewCount: number;
   featured?: boolean;

@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { artists, getArtist } from "@/lib/artists";
-import { products, experiences } from "@/lib/data";
+import { products } from "@/lib/data";
 import { drops } from "@/lib/drops";
-import { ItemImage } from "@/components/item-image";
-import { ProductCard, ExperienceCard } from "@/components/cards";
+import { ArtistAvatar } from "@/components/artist-avatar";
+import { ProductCard } from "@/components/cards";
 import { JoinCommunity } from "@/components/join-community";
 import { Countdown } from "@/components/countdown";
 import { Badge, Section } from "@/components/ui";
@@ -34,7 +34,6 @@ export default async function ArtistPage({ params }: { params: Promise<{ slug: s
   if (!artist) notFound();
 
   const artistProducts = products.filter((p) => p.artist === artist.name);
-  const artistExp = experiences.filter((e) => e.artist === artist.name);
   const artistDrops = drops.filter((d) => d.artist === artist.name);
 
   const userId = await getUserId();
@@ -44,16 +43,19 @@ export default async function ArtistPage({ params }: { params: Promise<{ slug: s
     <div>
       {/* HERO */}
       <div className="relative">
-        <ItemImage seed={artist.slug} emoji={artist.emoji} className="h-56 w-full sm:h-72" />
-        <div className="absolute inset-0 bg-gradient-to-t from-bg via-bg/50 to-transparent" />
+        <div
+          className="h-56 w-full sm:h-72"
+          style={{
+            backgroundImage: `radial-gradient(80% 120% at 15% 0%, hsl(${artist.hue} 95% 90%), transparent 60%), radial-gradient(80% 120% at 100% 0%, hsl(${(artist.hue + 50) % 360} 95% 88%), transparent 60%), linear-gradient(160deg, hsl(${artist.hue} 100% 95%), #ffffff)`,
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-bg via-transparent to-transparent" />
       </div>
 
       <div className="mx-auto -mt-16 max-w-7xl px-4 sm:px-6">
         <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <div className="grid h-24 w-24 place-items-center rounded-2xl border border-border bg-surface text-5xl">
-              {artist.emoji}
-            </div>
+            <ArtistAvatar artist={artist} className="h-28 w-28 text-5xl" />
             <div className="mt-3 flex items-center gap-2">
               <h1 className="text-3xl font-extrabold tracking-tight">{artist.name}</h1>
               {artist.verified && <span className="text-brand-soft" title="Doğrulanmış">✔</span>}
@@ -96,16 +98,6 @@ export default async function ArtistPage({ params }: { params: Promise<{ slug: s
         </Section>
       )}
 
-      {artistExp.length > 0 && (
-        <Section title={`${artist.name} deneyimleri`}>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {artistExp.map((e) => (
-              <ExperienceCard key={e.id} experience={e} />
-            ))}
-          </div>
-        </Section>
-      )}
-
       {artistProducts.length > 0 && (
         <Section title={`${artist.name} merch`}>
           <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
@@ -116,7 +108,7 @@ export default async function ArtistPage({ params }: { params: Promise<{ slug: s
         </Section>
       )}
 
-      {artistProducts.length === 0 && artistExp.length === 0 && (
+      {artistProducts.length === 0 && (
         <Section>
           <div className="rounded-[var(--radius-card)] border border-dashed border-border py-16 text-center text-muted">
             Bu sanatçı için yakında yeni drop&apos;lar açılacak. Topluluğa katıl, ilk sen haberdar ol.

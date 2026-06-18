@@ -25,26 +25,26 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${SITE_NAME} — Türk Müziği Merch & Deneyim Pazarı`,
+    default: `${SITE_NAME} — Lisanslı Sanatçı Merch Pazarı`,
     template: `%s · ${SITE_NAME}`,
   },
   description: SITE_DESCRIPTION,
   applicationName: SITE_NAME,
   keywords: [
-    "Türk müziği", "merch", "konser", "sanatçı deneyimi", "kişiye özel video mesaj",
-    "backstage", "meet and greet", "tişört", "şapka", "bidahaspace",
+    "sanatçı merch", "lisanslı merch", "kişiselleştirilmiş tişört", "konser merch",
+    "tişört", "şapka", "hoodie", "poster", "Türk müziği", "superstar lab",
   ],
   openGraph: {
     type: "website",
     locale: "tr_TR",
     siteName: SITE_NAME,
-    title: `${SITE_NAME} — Türk Müziği Merch & Deneyim Pazarı`,
+    title: `${SITE_NAME} — Lisanslı Sanatçı Merch Pazarı`,
     description: SITE_DESCRIPTION,
     url: SITE_URL,
   },
   twitter: {
     card: "summary_large_image",
-    title: `${SITE_NAME} — Türk Müziği Merch & Deneyim Pazarı`,
+    title: `${SITE_NAME} — Lisanslı Sanatçı Merch Pazarı`,
     description: SITE_DESCRIPTION,
   },
   robots: { index: true, follow: true },

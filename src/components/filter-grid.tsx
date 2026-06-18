@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import type { Product, Experience } from "@/lib/types";
-import { ProductCard, ExperienceCard } from "./cards";
+import type { Product } from "@/lib/types";
+import { ProductCard } from "./cards";
 
 interface Cat {
   value: string;
@@ -28,7 +28,7 @@ function Chips({
           onClick={() => onPick(c.value)}
           className={`flex shrink-0 items-center gap-1.5 rounded-full border px-4 py-2 text-sm font-medium transition-colors ${
             active === c.value
-              ? "border-brand bg-brand/15 text-brand-soft"
+              ? "border-brand bg-brand/10 text-brand"
               : "border-border text-muted hover:text-foreground"
           }`}
         >
@@ -49,28 +49,6 @@ export function ProductFilterGrid({ products, cats }: { products: Product[]; cat
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
         {list.map((p) => (
           <ProductCard key={p.id} product={p} />
-        ))}
-      </div>
-      {list.length === 0 && <Empty />}
-    </>
-  );
-}
-
-export function ExperienceFilterGrid({
-  experiences,
-  cats,
-}: {
-  experiences: Experience[];
-  cats: Cat[];
-}) {
-  const [active, setActive] = useState("all");
-  const list = active === "all" ? experiences : experiences.filter((e) => e.category === active);
-  return (
-    <>
-      <Chips cats={cats} active={active} onPick={setActive} />
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {list.map((e) => (
-          <ExperienceCard key={e.id} experience={e} />
         ))}
       </div>
       {list.length === 0 && <Empty />}

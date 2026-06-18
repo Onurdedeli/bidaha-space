@@ -1,21 +1,31 @@
 @import "tailwindcss";
 
 @theme {
-  --color-bg: #0a0a0f;
-  --color-bg-soft: #12121a;
-  --color-surface: #16161f;
-  --color-surface-2: #1e1e2a;
-  --color-border: #2a2a38;
-  --color-foreground: #f4f4f6;
-  --color-muted: #9a9aab;
+  /* Açık / beyaz tema — pastel merch hub */
+  --color-bg: #ffffff;
+  --color-bg-soft: #faf7fd;
+  --color-surface: #ffffff;
+  --color-surface-2: #f4f1f8;
+  --color-border: #ebe8f1;
+  --color-foreground: #181225;
+  --color-muted: #6c6880;
 
   --color-brand: #7c3aed;
   --color-brand-soft: #8b5cf6;
-  --color-accent: #d4ff3f;
-  --color-accent-soft: #e2ff6e;
+  /* accent: beyaz üstünde okunur, pastel-canlı pembe */
+  --color-accent: #e11d74;
+  --color-accent-soft: #f04a96;
 
-  --color-success: #34d399;
-  --color-danger: #f87171;
+  --color-success: #16a34a;
+  --color-danger: #e11d48;
+
+  /* pastel kart tonları (TRENDING NOW grid) */
+  --pastel-pink: #fce7f3;
+  --pastel-yellow: #fef9c3;
+  --pastel-lilac: #ede9fe;
+  --pastel-mint: #d1fae5;
+  --pastel-peach: #ffedd5;
+  --pastel-sky: #e0f2fe;
 
   --font-sans: var(--font-geist-sans), system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), monospace;
@@ -24,7 +34,7 @@
 }
 
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 * {
@@ -42,10 +52,12 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Yumuşak pastel arka plan dokusu (hero / CTA blokları) */
 .mesh-bg {
   background:
-    radial-gradient(50rem 30rem at 15% -10%, color-mix(in srgb, var(--color-brand) 35%, transparent), transparent),
-    radial-gradient(40rem 25rem at 90% 0%, color-mix(in srgb, var(--color-accent) 18%, transparent), transparent);
+    radial-gradient(46rem 28rem at 12% -8%, color-mix(in srgb, var(--color-brand) 14%, transparent), transparent),
+    radial-gradient(40rem 24rem at 92% -4%, color-mix(in srgb, var(--color-accent) 12%, transparent), transparent),
+    radial-gradient(40rem 30rem at 60% 110%, color-mix(in srgb, var(--pastel-sky) 60%, transparent), transparent);
 }
 
 .no-scrollbar::-webkit-scrollbar { display: none; }
@@ -56,47 +68,26 @@ body {
   to { transform: translateX(-50%); }
 }
 .animate-marquee {
-  animation: marquee 28s linear infinite;
+  animation: marquee 32s linear infinite;
 }
 
 @keyframes floaty {
   0%, 100% { transform: translateY(0) rotate(-2deg); }
-  50% { transform: translateY(-7%) rotate(2deg); }
-}
-@keyframes orbDrift {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(6%, -8%) scale(1.12); }
+  50% { transform: translateY(-6%) rotate(2deg); }
 }
 @keyframes haloPulse {
-  0%, 100% { opacity: 0.55; transform: scale(1); }
-  50% { opacity: 0.85; transform: scale(1.08); }
-}
-
-@keyframes auroraSpin {
-  from { transform: rotate(0deg) scale(1.4); }
-  to { transform: rotate(360deg) scale(1.4); }
+  0%, 100% { opacity: 0.45; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.06); }
 }
 @keyframes shine {
   0% { transform: translateX(-130%) skewX(-18deg); opacity: 0; }
-  18% { opacity: 0.9; }
+  18% { opacity: 0.7; }
   40% { transform: translateX(140%) skewX(-18deg); opacity: 0; }
   100% { transform: translateX(140%) skewX(-18deg); opacity: 0; }
-}
-@keyframes sparkle {
-  0%, 100% { opacity: 0.2; }
-  50% { opacity: 0.7; }
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .art-emoji { animation: floaty 6s ease-in-out infinite; }
-  .art-orb { animation: orbDrift 11s ease-in-out infinite; }
   .art-halo { animation: haloPulse 5s ease-in-out infinite; }
-  .art-aurora { animation: auroraSpin 18s linear infinite; }
-  .art-shine { animation: shine 5.5s ease-in-out infinite; }
-  .art-sparkle { animation: sparkle 4s ease-in-out infinite; }
-}
-
-/* SVG grain texture (data URI) for premium surface noise */
-.art-grain {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  .art-shine { animation: shine 6s ease-in-out infinite; }
 }

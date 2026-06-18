@@ -26,7 +26,7 @@ export function Badge({
 export function Stars({ rating, count }: { rating: number; count?: number }) {
   return (
     <span className="inline-flex items-center gap-1 text-xs text-muted">
-      <span className="text-accent">★</span>
+      <span className="text-amber-400">★</span>
       <span className="font-semibold text-foreground">{rating.toFixed(1)}</span>
       {count != null && <span>({count})</span>}
     </span>
@@ -40,8 +40,8 @@ type ButtonBase = {
 
 const btnClasses = ({ variant = "primary", size = "md" }: ButtonBase) => {
   const variants = {
-    primary: "bg-brand text-white hover:bg-brand-soft",
-    accent: "bg-accent text-black hover:bg-accent-soft",
+    primary: "bg-foreground text-white hover:bg-brand",
+    accent: "bg-accent text-white hover:bg-accent-soft",
     ghost: "bg-transparent text-foreground hover:bg-surface-2",
     outline: "border border-border bg-transparent text-foreground hover:bg-surface-2",
   } as const;

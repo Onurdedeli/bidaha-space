@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { artists } from "@/lib/artists";
-import { ItemImage } from "@/components/item-image";
+import { ArtistAvatar } from "@/components/artist-avatar";
 import { Badge } from "@/components/ui";
 import { formatCount } from "@/lib/format";
 
@@ -26,10 +26,17 @@ export default function SanatcilarPage() {
           <Link
             key={a.slug}
             href={`/sanatci/${a.slug}`}
-            className="group overflow-hidden rounded-[var(--radius-card)] border border-border bg-surface transition-colors hover:border-brand/50"
+            className="group overflow-hidden rounded-[var(--radius-card)] border border-border bg-surface transition-all hover:-translate-y-0.5 hover:border-brand/50 hover:shadow-lg"
           >
-            <ItemImage seed={a.slug} emoji={a.emoji} size="lg" className="aspect-[16/9] w-full" />
-            <div className="p-5">
+            <div
+              className="relative flex h-32 items-end justify-center"
+              style={{
+                backgroundImage: `radial-gradient(80% 120% at 20% 0%, hsl(${a.hue} 95% 90%), transparent 60%), linear-gradient(160deg, hsl(${a.hue} 100% 95%), #ffffff)`,
+              }}
+            >
+              <ArtistAvatar artist={a} className="-mb-8 h-20 w-20 text-3xl" />
+            </div>
+            <div className="p-5 pt-10">
               <div className="flex items-center gap-2">
                 <h3 className="text-lg font-bold group-hover:text-brand-soft">{a.name}</h3>
                 {a.verified && <span title="Doğrulanmış" className="text-brand-soft">✔</span>}

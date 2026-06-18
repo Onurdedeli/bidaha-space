@@ -15,7 +15,7 @@ export default function SepetPage() {
   const [orderId, setOrderId] = useState<string | null>(null);
   const [placing, startPlacing] = useTransition();
 
-  const shipping = lines.some((l) => l.type === "product") ? 89 : 0;
+  const shipping = count > 0 ? 89 : 0;
   const total = subtotal + shipping;
 
   function checkout() {
@@ -41,7 +41,7 @@ export default function SepetPage() {
         )}
         <p className="mt-3 text-muted">
           {orderId
-            ? "Siparişin kaydedildi (durum: beklemede). Ödeme entegrasyonu eklendiğinde tahsilat burada yapılacak. Deneyimlerin için ekip seninle iletişime geçer, ürünlerin kargoya verilir."
+            ? "Siparişin kaydedildi (durum: beklemede). Ödeme entegrasyonu eklendiğinde tahsilat burada yapılacak; ürünlerin kargoya verilir."
             : "Bu bir demo ödemesidir; gerçek bir tahsilat yapılmadı."}
         </p>
         <div className="mt-8 flex justify-center gap-3">
@@ -57,10 +57,10 @@ export default function SepetPage() {
       <div className="mx-auto max-w-2xl px-4 py-24 text-center">
         <div className="text-6xl">🛒</div>
         <h1 className="mt-4 text-2xl font-bold">Sepetin boş</h1>
-        <p className="mt-2 text-muted">Bir an yakala — merch ya da deneyim ekle.</p>
+        <p className="mt-2 text-muted">Sevdiğin sanatçının merch&apos;ini keşfet.</p>
         <div className="mt-6 flex justify-center gap-3">
-          <ButtonLink href="/magaza" variant="outline">Mağaza</ButtonLink>
-          <ButtonLink href="/deneyimler" variant="accent">Deneyimler</ButtonLink>
+          <ButtonLink href="/magaza" variant="accent">Mağazaya git</ButtonLink>
+          <ButtonLink href="/sanatcilar" variant="outline">Sanatçılar</ButtonLink>
         </div>
       </div>
     );
@@ -90,13 +90,13 @@ export default function SepetPage() {
                     <div>
                       <span className="text-xs font-medium text-brand-soft">{l.artist}</span>
                       <Link
-                        href={`/${l.type === "product" ? "magaza" : "deneyimler"}/${l.slug}`}
+                        href={`/magaza/${l.slug}`}
                         className="block font-semibold hover:underline"
                       >
                         {l.name}
                       </Link>
                     </div>
-                    <Badge tone="muted">{l.type === "product" ? "Ürün" : "Deneyim"}</Badge>
+                    <Badge tone="muted">Ürün</Badge>
                   </div>
 
                   {l.options && (
@@ -111,15 +111,11 @@ export default function SepetPage() {
                   {l.note && <p className="mt-1 text-xs text-muted">📝 {l.note}</p>}
 
                   <div className="mt-auto flex items-center justify-between pt-3">
-                    {l.type === "product" ? (
-                      <div className="flex items-center rounded-full border border-border">
-                        <button onClick={() => setQty(key, l.quantity - 1)} className="px-3 py-1 text-lg">−</button>
-                        <span className="w-8 text-center text-sm font-semibold tabular-nums">{l.quantity}</span>
-                        <button onClick={() => setQty(key, l.quantity + 1)} className="px-3 py-1 text-lg">+</button>
-                      </div>
-                    ) : (
-                      <span className="text-xs text-muted">Adet: 1 (deneyim)</span>
-                    )}
+                    <div className="flex items-center rounded-full border border-border">
+                      <button onClick={() => setQty(key, l.quantity - 1)} className="px-3 py-1 text-lg">−</button>
+                      <span className="w-8 text-center text-sm font-semibold tabular-nums">{l.quantity}</span>
+                      <button onClick={() => setQty(key, l.quantity + 1)} className="px-3 py-1 text-lg">+</button>
+                    </div>
                     <div className="flex items-center gap-4">
                       <span className="font-bold">{formatTRY(l.unitPrice * l.quantity)}</span>
                       <button

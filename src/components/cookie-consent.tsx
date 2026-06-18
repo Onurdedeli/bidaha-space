@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { Button } from "./ui";
 
-const KEY = "biletspace_consent_v1";
+const KEY = "superstar_consent_v1";
 
 export function CookieConsent() {
   const [show, setShow] = useState(false);

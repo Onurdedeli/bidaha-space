@@ -1,11 +1,11 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/site";
-import { products, experiences } from "@/lib/data";
+import { products } from "@/lib/data";
 import { artists } from "@/lib/artists";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
-  const staticRoutes = ["", "/magaza", "/deneyimler", "/sanatcilar", "/anlar"].map((path) => ({
+  const staticRoutes = ["", "/magaza", "/sanatcilar", "/anlar", "/panel"].map((path) => ({
     url: `${SITE_URL}${path}`,
     lastModified: now,
     changeFrequency: "daily" as const,
@@ -19,13 +19,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  const experienceRoutes = experiences.map((e) => ({
-    url: `${SITE_URL}/deneyimler/${e.slug}`,
-    lastModified: now,
-    changeFrequency: "weekly" as const,
-    priority: 0.7,
-  }));
-
   const artistRoutes = artists.map((a) => ({
     url: `${SITE_URL}/sanatci/${a.slug}`,
     lastModified: now,
@@ -33,5 +26,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...staticRoutes, ...productRoutes, ...experienceRoutes, ...artistRoutes];
+  return [...staticRoutes, ...productRoutes, ...artistRoutes];
 }

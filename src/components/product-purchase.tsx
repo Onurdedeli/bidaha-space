@@ -12,17 +12,20 @@ export function ProductPurchase({ product }: { product: Product }) {
   const router = useRouter();
   const [size, setSize] = useState<string | null>(null);
   const [color, setColor] = useState<string | null>(product.colors?.[0]?.value ?? null);
+  const [model, setModel] = useState<string | null>(product.models?.[0]?.value ?? null);
   const [qty, setQty] = useState(1);
   const [added, setAdded] = useState(false);
 
   const needsSize = !!product.sizes?.length;
   const needsColor = !!product.colors?.length;
-  const canAdd = (!needsSize || size) && (!needsColor || color);
+  const needsModel = !!product.models?.length;
+  const canAdd = (!needsSize || size) && (!needsColor || color) && (!needsModel || model);
 
   function buildLine() {
     const options: Record<string, string> = {};
-    if (size) options["Beden"] = size;
+    if (model) options["Model"] = model;
     if (color) options["Renk"] = color;
+    if (size) options["Beden"] = size;
     return {
       itemId: product.id,
       type: "product" as const,
@@ -49,11 +52,27 @@ export function ProductPurchase({ product }: { product: Product }) {
     router.push("/sepet");
   }
 
+  const missing = [
+    needsModel && !model ? "model" : "",
+    needsColor && !color ? "renk" : "",
+    needsSize && !size ? "beden" : "",
+  ].filter(Boolean);
+
   return (
     <div className="space-y-5">
+      {needsModel && (
+        <Selector
+          title="Model · baskı tasarımı"
+          step={1}
+          options={product.models!.map((m) => ({ value: m.value, disabled: m.stock === 0 }))}
+          selected={model}
+          onSelect={setModel}
+        />
+      )}
       {needsColor && (
         <Selector
           title="Renk"
+          step={needsModel ? 2 : 1}
           options={product.colors!.map((c) => ({ value: c.value, disabled: c.stock === 0 }))}
           selected={color}
           onSelect={setColor}
@@ -62,6 +81,7 @@ export function ProductPurchase({ product }: { product: Product }) {
       {needsSize && (
         <Selector
           title="Beden"
+          step={(needsModel ? 1 : 0) + (needsColor ? 1 : 0) + 1}
           options={product.sizes!.map((s) => ({ value: s.value, disabled: s.stock === 0 }))}
           selected={size}
           onSelect={setSize}
@@ -89,12 +109,8 @@ export function ProductPurchase({ product }: { product: Product }) {
           Hemen al · {formatTRY(product.price * qty)}
         </Button>
       </div>
-      {!canAdd && (
-        <p className="text-xs text-muted">
-          Devam etmek için {needsColor && !color ? "renk" : ""}
-          {needsColor && !color && needsSize && !size ? " ve " : ""}
-          {needsSize && !size ? "beden" : ""} seç.
-        </p>
+      {!canAdd && missing.length > 0 && (
+        <p className="text-xs text-muted">Devam etmek için {missing.join(", ")} seç.</p>
       )}
     </div>
   );
@@ -102,18 +118,27 @@ export function ProductPurchase({ product }: { product: Product }) {
 
 function Selector({
   title,
+  step,
   options,
   selected,
   onSelect,
 }: {
   title: string;
+  step?: number;
   options: { value: string; disabled?: boolean }[];
   selected: string | null;
   onSelect: (v: string) => void;
 }) {
   return (
     <div>
-      <div className="mb-2 text-sm font-medium text-muted">{title}</div>
+      <div className="mb-2 flex items-center gap-2 text-sm font-medium text-muted">
+        {step != null && (
+          <span className="grid h-5 w-5 place-items-center rounded-full bg-brand/10 text-[11px] font-bold text-brand">
+            {step}
+          </span>
+        )}
+        {title}
+      </div>
       <div className="flex flex-wrap gap-2">
         {options.map((o) => (
           <button
@@ -122,7 +147,7 @@ function Selector({
             onClick={() => onSelect(o.value)}
             className={`rounded-full border px-4 py-2 text-sm font-medium transition-colors ${
               selected === o.value
-                ? "border-brand bg-brand/15 text-brand-soft"
+                ? "border-brand bg-brand/10 text-brand"
                 : "border-border hover:border-foreground/40"
             } ${o.disabled ? "cursor-not-allowed opacity-40 line-through" : ""}`}
           >

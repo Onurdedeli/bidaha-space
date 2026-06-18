@@ -6,7 +6,7 @@
  * Her form gönderimine / sipariş olayına iliştirilir.
  */
 
-const KEY = "biletspace_attribution_v1";
+const KEY = "superstar_attribution_v1";
 
 const UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"] as const;
 

@@ -3,7 +3,7 @@
 import { createContext, useContext, useEffect, useMemo, useReducer, useState } from "react";
 import type { CartLine } from "@/lib/types";
 
-const STORAGE_KEY = "biletspace_cart_v1";
+const STORAGE_KEY = "superstar_cart_v1";
 
 interface CartState {
   lines: CartLine[];

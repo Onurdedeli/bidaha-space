@@ -6,7 +6,7 @@ import { authEnabled } from "@/lib/auth-config";
 import { toggleFollow } from "@/lib/actions";
 import { Button } from "./ui";
 
-const LS_KEY = "biletspace_following_v1";
+const LS_KEY = "superstar_following_v1";
 
 export function JoinCommunity({
   slug,
@@ -59,7 +59,7 @@ export function JoinCommunity({
     return (
       <div className="flex flex-col gap-2">
         <SignInButton mode="modal">
-          <button className="inline-flex items-center justify-center rounded-full bg-accent px-6 py-3 text-base font-semibold text-black transition-colors hover:bg-accent-soft">
+          <button className="inline-flex items-center justify-center rounded-full bg-accent px-6 py-3 text-base font-semibold text-white transition-colors hover:bg-accent-soft">
             {name} topluluğuna katıl
           </button>
         </SignInButton>

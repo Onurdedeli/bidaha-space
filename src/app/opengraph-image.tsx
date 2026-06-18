@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Bidahaspace — Türk Müziği Merch & Deneyim Pazarı";
+export const alt = "SuperStar Lab — Lisanslı Sanatçı Merch Pazarı";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -16,8 +16,8 @@ export default function OpengraphImage() {
           justifyContent: "space-between",
           padding: "72px",
           background:
-            "radial-gradient(60% 60% at 15% 0%, #2a1a55, #0a0a0f), radial-gradient(50% 50% at 95% 10%, #3a4a10, transparent)",
-          color: "#f4f4f6",
+            "radial-gradient(60% 60% at 12% 0%, #ede9fe, #ffffff), radial-gradient(50% 50% at 95% 8%, #fce7f3, transparent)",
+          color: "#181225",
           fontFamily: "sans-serif",
         }}
       >
@@ -27,52 +27,53 @@ export default function OpengraphImage() {
               width: 56,
               height: 56,
               borderRadius: 14,
-              background: "#7c3aed",
+              background: "linear-gradient(135deg, #7c3aed, #e11d74)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               fontSize: 34,
               fontWeight: 800,
+              color: "#fff",
             }}
           >
-            B
+            S
           </div>
           <div style={{ display: "flex", fontSize: 34, fontWeight: 700 }}>
-            bidaha<span style={{ color: "#d4ff3f" }}>space</span>
+            SuperStar<span style={{ color: "#7c3aed" }}>&nbsp;Lab</span>
           </div>
         </div>
 
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div style={{ fontSize: 68, fontWeight: 800, lineHeight: 1.05, maxWidth: 900 }}>
-            Sevdiğin sanatçıyla
+            Sevdiğin sanatçının
           </div>
           <div
             style={{
               fontSize: 68,
               fontWeight: 800,
               lineHeight: 1.05,
-              background: "linear-gradient(90deg, #8b5cf6, #d4ff3f)",
+              background: "linear-gradient(90deg, #7c3aed, #e11d74)",
               backgroundClip: "text",
               color: "transparent",
             }}
           >
-            gerçek bir bağ kur.
+            merch&apos;ini sen tasarla.
           </div>
-          <div style={{ marginTop: 24, fontSize: 30, color: "#9a9aab", maxWidth: 920 }}>
-            Merch · Deneyimler · Topluluk — an bazlı, Türk müziğinin pazarı
+          <div style={{ marginTop: 24, fontSize: 30, color: "#6c6880", maxWidth: 920 }}>
+            Sanatçı · Hayran · Üretim — lisanslı, kişiselleştirilmiş merch pazarı
           </div>
         </div>
 
         <div style={{ display: "flex", gap: 12 }}>
-          {["👕 Merch", "🍽️ Sanatçıyla yemek", "🎂 Özel mesaj", "🎤 Backstage"].map((t) => (
+          {["👕 Tişört", "🧥 Hoodie", "🧢 Şapka", "🖼️ Poster"].map((t) => (
             <div
               key={t}
               style={{
                 fontSize: 24,
                 padding: "10px 20px",
                 borderRadius: 999,
-                border: "1px solid #2a2a38",
-                background: "#16161f",
+                border: "1px solid #ebe8f1",
+                background: "#ffffff",
               }}
             >
               {t}

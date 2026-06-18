@@ -17,7 +17,7 @@ export default async function AnlarPage() {
       <header className="mb-8">
         <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">Anlar</h1>
         <p className="mt-2 max-w-2xl text-muted">
-          Bidahaspace sıradan bir mağaza değil; konser ve çıkış anları etrafında açılan{" "}
+          SuperStar Lab sıradan bir mağaza değil; konser ve çıkış anları etrafında açılan{" "}
           <span className="text-foreground">sınırlı pencereler</span> üzerine kurulu. Pencere
           kapanınca o an da kapanır.
         </p>
