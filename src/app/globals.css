@@ -1,36 +1,35 @@
 @import "tailwindcss";
 
 @theme {
-  /* Açık / beyaz tema — pastel merch hub */
+  /* Beyaz-öncelikli, parlak e-ticaret teması */
   --color-bg: #ffffff;
-  --color-bg-soft: #faf7fd;
+  --color-bg-soft: #f6f5f8;
   --color-surface: #ffffff;
-  --color-surface-2: #f4f1f8;
-  --color-border: #ebe8f1;
-  --color-foreground: #181225;
-  --color-muted: #6c6880;
+  --color-surface-2: #f6f5f8;
+  --color-border: #eceaf0;
+  --color-foreground: #16131b;
+  --color-muted: #6b6675;
 
-  --color-brand: #7c3aed;
-  --color-brand-soft: #8b5cf6;
-  /* accent: beyaz üstünde okunur, pastel-canlı pembe */
-  --color-accent: #e11d74;
-  --color-accent-soft: #f04a96;
+  /* Birincil aksiyon = near-black; vurgu = spotlight gold (yalnız küçük detaylar + yıldız) */
+  --color-brand: #16131b;
+  --color-brand-soft: #2a2533;
+  --color-accent: #f4a62a;
+  --color-accent-soft: #ffb949;
+
+  /* Sanatçı aksan renkleri (yalnız hero banner + nokta + tonlu thumbnail) */
+  --color-manifest: #ec5f9c;
+  --color-ajda: #e9a52e;
+  --color-hayko: #c8413c;
+  --color-fatma: #2fa597;
 
   --color-success: #16a34a;
   --color-danger: #e11d48;
 
-  /* pastel kart tonları (TRENDING NOW grid) */
-  --pastel-pink: #fce7f3;
-  --pastel-yellow: #fef9c3;
-  --pastel-lilac: #ede9fe;
-  --pastel-mint: #d1fae5;
-  --pastel-peach: #ffedd5;
-  --pastel-sky: #e0f2fe;
-
-  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-display: var(--font-space-grotesk), var(--font-inter), system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), monospace;
 
-  --radius-card: 18px;
+  --radius-card: 16px;
 }
 
 :root {
@@ -52,42 +51,26 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Yumuşak pastel arka plan dokusu (hero / CTA blokları) */
-.mesh-bg {
-  background:
-    radial-gradient(46rem 28rem at 12% -8%, color-mix(in srgb, var(--color-brand) 14%, transparent), transparent),
-    radial-gradient(40rem 24rem at 92% -4%, color-mix(in srgb, var(--color-accent) 12%, transparent), transparent),
-    radial-gradient(40rem 30rem at 60% 110%, color-mix(in srgb, var(--pastel-sky) 60%, transparent), transparent);
+/* Başlıklar + wordmark → Space Grotesk */
+h1, h2, h3, h4, .font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.01em;
 }
 
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-.animate-marquee {
-  animation: marquee 32s linear infinite;
-}
-
-@keyframes floaty {
-  0%, 100% { transform: translateY(0) rotate(-2deg); }
-  50% { transform: translateY(-6%) rotate(2deg); }
-}
-@keyframes haloPulse {
-  0%, 100% { opacity: 0.45; transform: scale(1); }
-  50% { opacity: 0.7; transform: scale(1.06); }
-}
-@keyframes shine {
-  0% { transform: translateX(-130%) skewX(-18deg); opacity: 0; }
-  18% { opacity: 0.7; }
-  40% { transform: translateX(140%) skewX(-18deg); opacity: 0; }
-  100% { transform: translateX(140%) skewX(-18deg); opacity: 0; }
+/* Yumuşak kart gölgesi (hover) */
+.card-hover { transition: box-shadow .2s ease, transform .2s ease, border-color .2s ease; }
+.card-hover:hover {
+  box-shadow: 0 12px 30px -12px rgba(22, 19, 27, 0.18);
+  transform: translateY(-2px);
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .art-emoji { animation: floaty 6s ease-in-out infinite; }
-  .art-halo { animation: haloPulse 5s ease-in-out infinite; }
-  .art-shine { animation: shine 6s ease-in-out infinite; }
+  .anim-float { animation: floaty 6s ease-in-out infinite; }
+}
+@keyframes floaty {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5%); }
 }

@@ -1,55 +1,70 @@
 import Link from "next/link";
-import { EmailCapture } from "./email-capture";
-import { SITE_NAME } from "@/lib/site";
+
+function StarIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden>
+      <path d="M12 2l2.2 6.6L21 9l-5.4 4.1L17.6 20 12 16.2 6.4 20l2-6.9L3 9l6.8-.4z" />
+    </svg>
+  );
+}
 
 export function Footer() {
   return (
-    <footer className="mt-10 border-t border-border bg-bg-soft">
-      <div className="mx-auto max-w-7xl border-b border-border px-4 py-10 sm:px-6">
-        <EmailCapture source="footer" />
-      </div>
-      <div className="mx-auto grid max-w-7xl gap-8 px-4 py-12 sm:px-6 md:grid-cols-4">
+    <footer className="mt-12 border-t border-border bg-bg">
+      <div className="mx-auto grid max-w-7xl gap-8 px-4 py-12 sm:px-6 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
         <div>
-          <Link href="/" className="flex items-center gap-2 font-bold">
-            <span className="grid h-8 w-8 place-items-center rounded-lg bg-gradient-to-br from-brand to-accent text-white">
-              ★
-            </span>
-            <span className="text-lg">
-              SuperStar<span className="text-brand"> Lab</span>
-            </span>
+          <Link href="/" className="flex items-center gap-2">
+            <StarIcon className="h-5 w-5 text-accent" />
+            <span className="font-display text-lg font-bold tracking-tight">Superstar Lab</span>
           </Link>
           <p className="mt-3 max-w-xs text-sm text-muted">
-            Sanatçı, hayran ve üretim arasındaki köprü. Sevdiğin sanatçının lisanslı merch&apos;ini
-            seç, kişiselleştir, satın al.
+            Sevdiğin sanatçının lisanslı merch&apos;i ve eşsiz fan deneyimleri — tek pazarda.
           </p>
+          <div className="mt-4 flex gap-2">
+            {["instagram", "x", "youtube", "tiktok"].map((s) => (
+              <a
+                key={s}
+                href="#"
+                aria-label={s}
+                className="grid h-9 w-9 place-items-center rounded-full border border-border text-sm text-muted hover:text-foreground"
+              >
+                {s === "instagram" ? "◎" : s === "x" ? "✕" : s === "youtube" ? "▶" : "♪"}
+              </a>
+            ))}
+          </div>
         </div>
+
         <FooterCol
-          title="Keşfet"
+          title="Mağaza"
           links={[
-            ["Mağaza", "/magaza"],
+            ["Tüm ürünler", "/magaza"],
             ["Sanatçılar", "/sanatcilar"],
             ["Anlar & Droplar", "/anlar"],
+            ["Deneyimler", "/#deneyimler"],
           ]}
         />
         <FooterCol
-          title="Sanatçılar için"
+          title="Hakkında"
           links={[
+            ["Nasıl çalışır?", "/#uyelik"],
+            ["Üyelik", "/#uyelik"],
             ["Sanatçı Paneli", "/panel"],
-            ["Nasıl çalışır?", "/#nasil"],
-            ["Sepetim", "/sepet"],
           ]}
         />
         <FooterCol
-          title="Kurumsal"
+          title="İletişim"
           links={[
+            ["Bize ulaşın", "#"],
             ["Gizlilik", "#"],
             ["Kullanım Şartları", "#"],
-            ["İletişim", "#"],
           ]}
         />
       </div>
-      <div className="border-t border-border px-4 py-5 text-center text-xs text-muted sm:px-6">
-        © {2026} {SITE_NAME}. Tüm hakları saklıdır. Bu bir demo platformudur.
+      <div className="border-t border-border px-4 py-5 sm:px-6">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 text-xs text-muted sm:flex-row">
+          <span>© 2026 Superstar Lab. Tüm hakları saklıdır.</span>
+          <span>Görseller temsilîdir.</span>
+        </div>
       </div>
     </footer>
   );

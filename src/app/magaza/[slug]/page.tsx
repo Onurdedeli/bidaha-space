@@ -44,8 +44,8 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       <div className="grid gap-8 lg:grid-cols-2">
         <div className="space-y-3">
           <ItemImage
-            seed={product.slug}
             emoji={product.image}
+            accent={artist?.accent}
             size="lg"
             className="aspect-square w-full rounded-[var(--radius-card)] border border-border"
           />

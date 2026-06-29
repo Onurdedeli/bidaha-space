@@ -46,7 +46,7 @@ export default async function ArtistPage({ params }: { params: Promise<{ slug: s
         <div
           className="h-56 w-full sm:h-72"
           style={{
-            backgroundImage: `radial-gradient(80% 120% at 15% 0%, hsl(${artist.hue} 95% 90%), transparent 60%), radial-gradient(80% 120% at 100% 0%, hsl(${(artist.hue + 50) % 360} 95% 88%), transparent 60%), linear-gradient(160deg, hsl(${artist.hue} 100% 95%), #ffffff)`,
+            backgroundImage: `radial-gradient(120% 120% at 15% 0%, ${artist.accent} 0%, ${artist.accent}d9 45%, #16131b 130%)`,
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-bg via-transparent to-transparent" />

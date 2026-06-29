@@ -9,28 +9,16 @@ export interface Artist {
   tagline: string;
   bio: string;
   verified?: boolean;
+  /** sanatçı aksan rengi (hero banner, nokta, tonlu thumbnail) — hex */
+  accent: string;
   /**
    * Lisanslı sanatçı görseli. `public/artists/<slug>.jpg` koyulduğunda otomatik
-   * kullanılır; yoksa slug'dan üretilen stilize avatar gösterilir.
+   * kullanılır; yoksa accent renginden üretilen stilize avatar gösterilir.
    */
   image?: string;
-  /** placeholder avatar için temel renk tonu (0-360) */
-  hue: number;
 }
 
 export const artists: Artist[] = [
-  {
-    slug: "mor-ve-otesi",
-    name: "Mor ve Ötesi",
-    genre: "Alternatif Rock",
-    emoji: "🎸",
-    followers: 2_100_000,
-    members: 44_800,
-    tagline: "Türk alternatif rock'ının değişmeyen sesi.",
-    bio: "Bir kuşağın marşı olmuş şarkılar, dolu salonlar. Topluluğa katıl; yeni drop'lar ve konser pencereleri açıldığında ilk sen haberdar ol.",
-    verified: true,
-    hue: 268,
-  },
   {
     slug: "manifest",
     name: "Manifest",
@@ -41,19 +29,8 @@ export const artists: Artist[] = [
     tagline: "Sahneyi sallayan yeni nesil pop.",
     bio: "Performansı ve sahne enerjisiyle gündemi belirleyen grup. Sınırlı üretim merch ve sahne arkası anlarıyla topluluğunu hep yakın tutuyor.",
     verified: true,
-    hue: 330,
-  },
-  {
-    slug: "yalin",
-    name: "Yalın",
-    genre: "Pop",
-    emoji: "🎤",
-    followers: 2_800_000,
-    members: 51_200,
-    tagline: "Sözleri dilden düşmeyen pop.",
-    bio: "Yaz akşamlarının vazgeçilmez şarkıları. Konser çıkışı bitmeyen sohbetlerin sahibi; özel koleksiyonlarıyla hayranlarına yaklaşıyor.",
-    verified: true,
-    hue: 200,
+    accent: "#ec5f9c",
+    image: "/artists/manifest.jpg",
   },
   {
     slug: "ajda-pekkan",
@@ -65,7 +42,8 @@ export const artists: Artist[] = [
     tagline: "Süperstar — Türk pop'unun divası.",
     bio: "Dönemleri aşan bir efsane. İkonik dönem koleksiyonları ve numaralandırılmış özel baskılarla zamansız bir miras.",
     verified: true,
-    hue: 42,
+    accent: "#e9a52e",
+    image: "/artists/ajda-pekkan.jpg",
   },
   {
     slug: "hayko-cepkin",
@@ -77,7 +55,21 @@ export const artists: Artist[] = [
     tagline: "Sahneyi yakan teatral rock.",
     bio: "Görsel şovu ve enerjisiyle eşsiz bir sahne deneyimi. Sınırlı tur merch'i ve backstage dropları dakikalar içinde tükeniyor.",
     verified: true,
-    hue: 12,
+    accent: "#c8413c",
+    image: "/artists/hayko-cepkin.jpg",
+  },
+  {
+    slug: "fatma-turgut",
+    name: "Fatma Turgut",
+    genre: "Rock / Pop",
+    emoji: "🎶",
+    followers: 1_100_000,
+    members: 24_300,
+    tagline: "Güçlü vokal, alternatif rock ruhu.",
+    bio: "Kendine has sesi ve sahne duruşuyla sevilen bir solist. Özel koleksiyonları ve imzalı ürünleriyle hayranlarına yakın.",
+    verified: true,
+    accent: "#2fa597",
+    image: "/artists/fatma-turgut.jpg",
   },
 ];
 

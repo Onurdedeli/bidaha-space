@@ -1,4 +1,13 @@
-export type ProductCategory = "tshirt" | "sapka" | "hoodie" | "aksesuar" | "poster";
+export type ProductCategory =
+  | "tshirt"
+  | "hoodie"
+  | "sapka"
+  | "vinyl"
+  | "photocard"
+  | "lightstick"
+  | "poster"
+  | "pin"
+  | "aksesuar";
 
 export type ExperienceCategory = "yemek" | "mesaj" | "backstage" | "ders" | "gorusme";
 

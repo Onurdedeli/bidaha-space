@@ -26,7 +26,7 @@ export function Badge({
 export function Stars({ rating, count }: { rating: number; count?: number }) {
   return (
     <span className="inline-flex items-center gap-1 text-xs text-muted">
-      <span className="text-amber-400">★</span>
+      <span className="text-accent">★</span>
       <span className="font-semibold text-foreground">{rating.toFixed(1)}</span>
       {count != null && <span>({count})</span>}
     </span>

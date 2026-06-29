@@ -1,9 +1,8 @@
 import type { Artist } from "@/lib/artists";
 
 /**
- * Dairesel sanatçı avatarı. `artist.image` (örn. /artists/<slug>.jpg) varsa onu,
- * yoksa hue'dan üretilen pastel gradyan + emoji placeholder'ı gösterir.
- * Lisanslı görseller public/artists/ altına eklenince otomatik devreye girer.
+ * Dairesel sanatçı avatarı. `artist.image` varsa onu, yoksa accent renginden
+ * üretilen temiz, tonlu placeholder + emoji gösterir.
  */
 export function ArtistAvatar({
   artist,
@@ -14,7 +13,7 @@ export function ArtistAvatar({
   className?: string;
   ring?: boolean;
 }) {
-  const ringCls = ring ? "ring-2 ring-white shadow-md" : "";
+  const ringCls = ring ? "ring-1 ring-border shadow-sm" : "";
 
   if (artist.image) {
     return (
@@ -25,16 +24,13 @@ export function ArtistAvatar({
     );
   }
 
-  const h = artist.hue;
   return (
     <div
       className={`relative grid place-items-center overflow-hidden rounded-full ${ringCls} ${className}`}
-      style={{
-        backgroundImage: `radial-gradient(120% 120% at 25% 10%, hsl(${h} 95% 86%), transparent 60%), linear-gradient(150deg, hsl(${h} 100% 90%), hsl(${(h + 45) % 360} 100% 85%))`,
-      }}
+      style={{ backgroundColor: `${artist.accent}1f` }}
       aria-label={artist.name}
     >
-      <span className="select-none text-[1.6em] leading-none" style={{ filter: "drop-shadow(0 2px 4px rgba(0,0,0,0.15))" }}>
+      <span className="select-none leading-none" style={{ fontSize: "1.5em" }}>
         {artist.emoji}
       </span>
     </div>

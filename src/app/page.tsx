@@ -1,204 +1,183 @@
 import Link from "next/link";
 import { products, getProductsByArtist } from "@/lib/data";
-import { getActiveDrops } from "@/lib/drops-db";
 import { artists } from "@/lib/artists";
+import { heroSlides, experiencesHome, membershipTiers } from "@/lib/home";
 import { ProductCard } from "@/components/cards";
 import { ArtistAvatar } from "@/components/artist-avatar";
-import { Section, Badge, ButtonLink } from "@/components/ui";
-import { Countdown } from "@/components/countdown";
-import { formatCount } from "@/lib/format";
+import { HeroCarousel } from "@/components/hero-carousel";
+import { ItemImage } from "@/components/item-image";
+import { formatTRY, formatCount } from "@/lib/format";
 
-export default async function Home() {
-  const featuredProducts = products.filter((p) => p.featured).slice(0, 9);
-  const drops = await getActiveDrops();
-  const collectionArtist = artists[0];
-  const collection = getProductsByArtist(collectionArtist.name);
+export default function Home() {
+  const featured = products.filter((p) => p.featured).slice(0, 8);
+  const collectionArtist = artists.find((a) => a.slug === "ajda-pekkan")!;
+  const collection = getProductsByArtist(collectionArtist.name).slice(0, 6);
 
   return (
     <>
-      {/* HERO */}
-      <section className="mesh-bg relative overflow-hidden border-b border-border">
-        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20">
-          <div className="max-w-3xl">
-            <Badge tone="brand">★ Lisanslı sanatçı merch pazarı</Badge>
-            <h1 className="mt-5 text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-6xl">
-              Sevdiğin sanatçının
-              <br />
-              <span className="bg-gradient-to-r from-brand to-accent bg-clip-text text-transparent">
-                merch&apos;ini sen tasarla.
-              </span>
-            </h1>
-            <p className="mt-5 max-w-xl text-lg text-muted">
-              Sanatçıyı seç, ürünü seç, beden–renk–modeli kendine göre ayarla. Hayran, sanatçı ve
-              üretim tek bir köprüde — abonelik yok, yalnızca aldığın için ödersin.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <ButtonLink href="/magaza" variant="accent" size="lg">
-                Mağazayı keşfet
-              </ButtonLink>
-              <ButtonLink href="/sanatcilar" variant="outline" size="lg">
-                Sanatçılar
-              </ButtonLink>
-            </div>
-          </div>
+      {/* 2 · HERO CAROUSEL */}
+      <section className="mx-auto max-w-7xl px-4 pb-4 pt-8 sm:px-6 sm:pt-10">
+        <HeroCarousel slides={heroSlides} />
+      </section>
 
-          {/* sanatçı şeridi */}
-          <div className="mt-12 flex flex-wrap gap-5">
-            {artists.map((a) => (
-              <Link key={a.slug} href={`/sanatci/${a.slug}`} className="group flex flex-col items-center gap-2">
-                <ArtistAvatar artist={a} className="h-16 w-16 text-2xl transition-transform group-hover:scale-105" />
-                <span className="text-xs font-medium text-muted group-hover:text-foreground">{a.name}</span>
+      {/* 3 · ÖNE ÇIKANLAR */}
+      <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-14">
+        <SectionHead title="Öne çıkanlar" href="/magaza" linkLabel="Tümünü gör" />
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+          {featured.map((p) => (
+            <ProductCard key={p.id} product={p} />
+          ))}
+        </div>
+      </section>
+
+      {/* 4 · FEATURED COLLECTION */}
+      <section className="mx-auto max-w-7xl px-4 py-6 sm:px-6">
+        <div className="grid gap-6 rounded-3xl border border-border bg-surface p-6 sm:p-8 lg:grid-cols-[0.9fr_1.4fr]">
+          <div className="flex flex-col justify-center">
+            <span
+              className="text-[11px] font-bold uppercase tracking-wide"
+              style={{ color: collectionArtist.accent }}
+            >
+              Koleksiyon
+            </span>
+            <h2 className="mt-2 text-3xl font-bold tracking-tight">
+              {collectionArtist.name} — Süperstar arşivi
+            </h2>
+            <p className="mt-3 max-w-sm text-sm text-muted">
+              Dönemleri aşan bir mirasın tüm parçaları tek yerde: remastered plaklar,
+              numaralandırılmış baskılar ve ikonik koleksiyon ürünleri.
+            </p>
+            <Link
+              href={`/sanatci/${collectionArtist.slug}`}
+              className="mt-6 inline-flex w-fit rounded-full bg-foreground px-5 py-2.5 text-sm font-semibold text-white hover:bg-brand-soft"
+            >
+              Koleksiyonu gör
+            </Link>
+          </div>
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+            {collection.map((p) => (
+              <Link
+                key={p.id}
+                href={`/magaza/${p.slug}`}
+                className="card-hover flex flex-col overflow-hidden rounded-2xl border border-border bg-surface"
+              >
+                <ItemImage emoji={p.image} accent={collectionArtist.accent} size="md" className="aspect-square w-full" />
+                <div className="p-3">
+                  <div className="line-clamp-1 text-xs font-semibold">{p.name}</div>
+                  <div className="mt-1 text-sm font-bold">{formatTRY(p.price)}</div>
+                </div>
               </Link>
             ))}
           </div>
         </div>
       </section>
 
-      {/* TRENDING NOW + TOP ARTISTS */}
-      <Section
-        title="Trend ürünler"
-        subtitle="Sanatçı onaylı, sınırlı üretim. Şu an en çok ilgi gören merch."
-        action={
-          <ButtonLink href="/magaza" variant="ghost" size="sm" className="hidden sm:inline-flex">
-            Tümü →
-          </ButtonLink>
-        }
-      >
-        <div className="grid gap-8 lg:grid-cols-[1fr_240px]">
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
-            {featuredProducts.map((p) => (
-              <ProductCard key={p.id} product={p} />
+      {/* 5 · DENEYİMLER */}
+      <section id="deneyimler" className="mt-10 bg-bg-soft py-12 sm:py-16">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
+          <div className="mb-6">
+            <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">Deneyimler</h2>
+            <p className="mt-1 max-w-2xl text-sm text-muted">
+              Sıradan bir mağaza değiliz — sanatçıyla gerçek anlar. Sınırlı kontenjanlı fan deneyimleri.
+            </p>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {experiencesHome.map((e) => (
+              <div key={e.title} className="flex flex-col rounded-2xl border border-border bg-surface p-5">
+                <div className="grid h-11 w-11 place-items-center rounded-xl bg-accent/15 text-xl">
+                  {e.icon}
+                </div>
+                <h3 className="mt-4 font-semibold">{e.title}</h3>
+                <p className="mt-1.5 flex-1 text-sm text-muted">{e.description}</p>
+                <div className="mt-4 flex items-center justify-between">
+                  <span className="rounded-full bg-accent/15 px-2.5 py-0.5 text-[11px] font-semibold text-foreground">
+                    {e.tag}
+                  </span>
+                  <span className="text-sm font-bold">{formatTRY(e.price)}</span>
+                </div>
+              </div>
             ))}
           </div>
+        </div>
+      </section>
 
-          <aside className="order-first lg:order-last">
-            <div className="rounded-[var(--radius-card)] border border-border bg-surface p-5">
-              <h3 className="mb-4 text-sm font-bold uppercase tracking-wide text-muted">Top Sanatçılar</h3>
-              <ul className="space-y-3">
-                {artists.map((a) => (
-                  <li key={a.slug}>
-                    <Link href={`/sanatci/${a.slug}`} className="group flex items-center gap-3">
-                      <ArtistAvatar artist={a} className="h-11 w-11 text-lg" ring={false} />
-                      <div className="min-w-0">
-                        <div className="truncate text-sm font-semibold group-hover:text-brand">{a.name}</div>
-                        <div className="text-xs text-muted">{formatCount(a.followers)} takipçi</div>
-                      </div>
-                    </Link>
+      {/* 6 · SANATÇILAR */}
+      <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16">
+        <div className="mb-8 flex items-end justify-between">
+          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">Sanatçılar</h2>
+          <Link href="/sanatcilar" className="text-sm font-semibold text-foreground hover:text-muted">
+            Tüm sanatçılar →
+          </Link>
+        </div>
+        <div className="flex flex-wrap justify-center gap-8 sm:gap-12">
+          {artists.map((a) => (
+            <Link key={a.slug} href={`/sanatci/${a.slug}`} className="group flex flex-col items-center gap-3">
+              <ArtistAvatar artist={a} className="h-24 w-24 text-3xl transition-transform group-hover:scale-105" />
+              <div className="text-center">
+                <div className="font-semibold group-hover:text-muted">{a.name}</div>
+                <div className="text-xs text-muted">{a.genre}</div>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* 7 · ÜYELİK */}
+      <section id="uyelik" className="mx-auto max-w-7xl px-4 py-6 pb-16 sm:px-6">
+        <div className="mb-8 text-center">
+          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">Üyelik</h2>
+          <p className="mx-auto mt-1 max-w-xl text-sm text-muted">
+            Sahneye ne kadar yakın olmak istersin? Seviyeni seç, ayrıcalıkların açılsın.
+          </p>
+        </div>
+        <div className="grid gap-5 lg:grid-cols-3">
+          {membershipTiers.map((t) => (
+            <div
+              key={t.name}
+              className={`relative flex flex-col rounded-3xl border bg-surface p-7 ${
+                t.highlighted ? "border-accent shadow-lg shadow-accent/10" : "border-border"
+              }`}
+            >
+              {t.highlighted && (
+                <span className="absolute -top-3 left-7 rounded-full bg-accent px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-foreground">
+                  En popüler
+                </span>
+              )}
+              <h3 className="text-lg font-bold">{t.name}</h3>
+              <p className="mt-1 text-sm text-muted">{t.blurb}</p>
+              <div className="mt-4 text-3xl font-extrabold tracking-tight">{t.price}</div>
+              <ul className="mt-5 flex-1 space-y-2.5 text-sm">
+                {t.perks.map((perk) => (
+                  <li key={perk} className="flex items-start gap-2">
+                    <span className="mt-0.5 text-accent">✓</span>
+                    <span className="text-muted">{perk}</span>
                   </li>
                 ))}
               </ul>
-            </div>
-          </aside>
-        </div>
-      </Section>
-
-      {/* ANLAR / DROPS */}
-      <Section
-        title="Anlar — açık pencereler"
-        subtitle="Konser ve çıkışlar etrafında açılan sınırlı drop'lar. Pencere kapanınca fırsat da kapanır."
-        action={
-          <ButtonLink href="/anlar" variant="ghost" size="sm" className="hidden sm:inline-flex">
-            Tümü →
-          </ButtonLink>
-        }
-      >
-        <div className="grid gap-4 md:grid-cols-3">
-          {drops.map((d) => {
-            const pct = Math.round((d.claimed / d.total) * 100);
-            return (
-              <Link
-                key={d.id}
-                href={d.href}
-                className="group flex flex-col gap-3 rounded-[var(--radius-card)] border border-border bg-surface p-5 transition-all hover:-translate-y-0.5 hover:border-accent/40 hover:shadow-lg"
+              <button
+                className={`mt-6 rounded-full px-5 py-2.5 text-sm font-semibold ${
+                  t.highlighted
+                    ? "bg-foreground text-white hover:bg-brand-soft"
+                    : "border border-border bg-surface text-foreground hover:bg-surface-2"
+                }`}
               >
-                <div className="flex items-center justify-between">
-                  <Badge tone={d.kind === "ozel" ? "brand" : "accent"}>
-                    {d.emoji} {d.kind === "konser" ? "Konser" : d.kind === "cikis" ? "Çıkış" : "Özel"}
-                  </Badge>
-                  <Countdown endsAt={d.endsAt} compact />
-                </div>
-                <h3 className="font-semibold leading-snug group-hover:text-brand">{d.title}</h3>
-                <p className="text-sm text-muted">{d.context}</p>
-                <div className="mt-auto">
-                  <div className="mb-1 flex justify-between text-xs text-muted">
-                    <span>{d.claimed}/{d.total} alındı</span>
-                    <span>%{pct}</span>
-                  </div>
-                  <div className="h-1.5 overflow-hidden rounded-full bg-surface-2">
-                    <div
-                      className="h-full rounded-full bg-gradient-to-r from-brand to-accent"
-                      style={{ width: `${pct}%` }}
-                    />
-                  </div>
-                </div>
-              </Link>
-            );
-          })}
-        </div>
-      </Section>
-
-      {/* KOLEKSİYON */}
-      {collection.length > 0 && (
-        <Section
-          title={`${collectionArtist.name} koleksiyonu`}
-          subtitle="Bir sanatçının tüm merch'i tek yerde."
-          action={
-            <ButtonLink href={`/sanatci/${collectionArtist.slug}`} variant="ghost" size="sm" className="hidden sm:inline-flex">
-              Sanatçı sayfası →
-            </ButtonLink>
-          }
-        >
-          <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-            {collection.slice(0, 4).map((p) => (
-              <ProductCard key={p.id} product={p} />
-            ))}
-          </div>
-        </Section>
-      )}
-
-      {/* NASIL CALISIR */}
-      <Section id="nasil" title="Nasıl çalışır?" subtitle="Hayran, sanatçı ve üretim arasındaki köprü.">
-        <div className="grid gap-4 md:grid-cols-3">
-          <HowStep n="1" title="Sanatçını seç" text="Sevdiğin sanatçının sayfasına git, koleksiyonunu ve açık anları keşfet." />
-          <HowStep n="2" title="Ürünü kişiselleştir" text="Kategoriyi seç, ardından beden, renk ve baskı modelini sana göre ayarla." />
-          <HowStep n="3" title="Sipariş ver, sanatçı kazansın" text="Üretim ve kargo bizden; sanatçı satışları panelden anlık takip eder." />
-        </div>
-      </Section>
-
-      {/* SANATÇI CTA */}
-      <Section>
-        <div className="mesh-bg relative overflow-hidden rounded-[var(--radius-card)] border border-border p-8 sm:p-14">
-          <div className="relative max-w-2xl">
-            <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
-              Sanatçı mısın? Satışlarını tek panelden yönet.
-            </h2>
-            <p className="mt-3 text-muted">
-              Merch&apos;ini yayınla, drop pencerelerini aç, gelir ve sipariş verilerini gerçek zamanlı gör.
-              Menajerin ve ekibin de aynı panele erişebilir.
-            </p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <ButtonLink href="/panel" variant="accent" size="lg">
-                Sanatçı paneline gir
-              </ButtonLink>
-              <ButtonLink href="/sanatcilar" variant="outline" size="lg">
-                Sanatçıları gör
-              </ButtonLink>
+                {t.cta}
+              </button>
             </div>
-          </div>
+          ))}
         </div>
-      </Section>
+      </section>
     </>
   );
 }
 
-function HowStep({ n, title, text }: { n: string; title: string; text: string }) {
+function SectionHead({ title, href, linkLabel }: { title: string; href: string; linkLabel: string }) {
   return (
-    <div className="rounded-[var(--radius-card)] border border-border bg-surface p-6">
-      <div className="grid h-10 w-10 place-items-center rounded-full bg-brand/10 text-lg font-bold text-brand">
-        {n}
-      </div>
-      <h3 className="mt-4 text-lg font-semibold">{title}</h3>
-      <p className="mt-1.5 text-sm text-muted">{text}</p>
+    <div className="mb-6 flex items-end justify-between">
+      <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">{title}</h2>
+      <Link href={href} className="text-sm font-semibold text-foreground hover:text-muted">
+        {linkLabel} →
+      </Link>
     </div>
   );
 }

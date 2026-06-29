@@ -31,7 +31,7 @@ export default function SanatcilarPage() {
             <div
               className="relative flex h-32 items-end justify-center"
               style={{
-                backgroundImage: `radial-gradient(80% 120% at 20% 0%, hsl(${a.hue} 95% 90%), transparent 60%), linear-gradient(160deg, hsl(${a.hue} 100% 95%), #ffffff)`,
+                backgroundImage: `radial-gradient(110% 130% at 20% 0%, ${a.accent} 0%, ${a.accent}cc 55%, #16131b 140%)`,
               }}
             >
               <ArtistAvatar artist={a} className="-mb-8 h-20 w-20 text-3xl" />

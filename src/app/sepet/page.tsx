@@ -84,7 +84,7 @@ export default function SepetPage() {
                 key={key}
                 className="flex gap-4 rounded-[var(--radius-card)] border border-border bg-surface p-4"
               >
-                <ItemImage seed={l.slug} emoji={l.image} size="sm" className="h-24 w-24 shrink-0 rounded-xl" />
+                <ItemImage emoji={l.image} size="sm" className="h-24 w-24 shrink-0 rounded-xl" />
                 <div className="flex flex-1 flex-col">
                   <div className="flex items-start justify-between gap-3">
                     <div>

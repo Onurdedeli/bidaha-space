@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, Space_Grotesk } from "next/font/google";
 import { Suspense } from "react";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
@@ -9,17 +9,17 @@ import { Footer } from "@/components/footer";
 import { AttributionTracker } from "@/components/attribution-tracker";
 import { CookieConsent } from "@/components/cookie-consent";
 import { AuthProvider } from "@/components/auth-provider";
-import { AuthButtons } from "@/components/auth-buttons";
 import { SITE_URL, SITE_NAME, SITE_DESCRIPTION } from "@/lib/site";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-space-grotesk",
   subsets: ["latin"],
+  weight: ["500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -58,7 +58,7 @@ export default function RootLayout({
   return (
     <html
       lang="tr"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${inter.variable} ${spaceGrotesk.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
         <AuthProvider>
@@ -66,7 +66,7 @@ export default function RootLayout({
             <Suspense fallback={null}>
               <AttributionTracker />
             </Suspense>
-            <Navbar authSlot={<AuthButtons />} />
+            <Navbar />
             <main className="flex-1">{children}</main>
             <Footer />
             <CookieConsent />
