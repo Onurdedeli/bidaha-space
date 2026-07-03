@@ -15,7 +15,7 @@ export function Footer() {
         <div>
           <Link href="/" className="flex items-center gap-2">
             <StarIcon className="h-5 w-5 text-accent" />
-            <span className="font-display text-lg font-bold tracking-tight">Superstar Lab</span>
+            <span className="font-display text-lg font-bold tracking-tight">StarLab</span>
           </Link>
           <p className="mt-3 max-w-xs text-sm text-muted">
             Sevdiğin sanatçının lisanslı merch&apos;i ve eşsiz fan deneyimleri — tek pazarda.
@@ -62,7 +62,7 @@ export function Footer() {
       </div>
       <div className="border-t border-border px-4 py-5 sm:px-6">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 text-xs text-muted sm:flex-row">
-          <span>© 2026 Superstar Lab. Tüm hakları saklıdır.</span>
+          <span>© 2026 StarLab. Tüm hakları saklıdır.</span>
           <span>Görseller temsilîdir.</span>
         </div>
       </div>

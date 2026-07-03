@@ -9,6 +9,6 @@ export const SITE_URL = (
     : "https://www.superstar.co")
 ).replace(/\/$/, "");
 
-export const SITE_NAME = "SuperStar Lab";
+export const SITE_NAME = "StarLab";
 export const SITE_DESCRIPTION =
   "Sanatçı, hayran ve üretim arasındaki köprü. Sevdiğin sanatçının lisanslı merch'ini seç, kişiselleştir, satın al — sanatçılar satışlarını panelden yönetir.";

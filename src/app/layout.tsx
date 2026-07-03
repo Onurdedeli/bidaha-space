@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   applicationName: SITE_NAME,
   keywords: [
     "sanatçı merch", "lisanslı merch", "kişiselleştirilmiş tişört", "konser merch",
-    "tişört", "şapka", "hoodie", "poster", "Türk müziği", "superstar lab",
+    "tişört", "şapka", "hoodie", "poster", "Türk müziği", "starlab",
   ],
   openGraph: {
     type: "website",

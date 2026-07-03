@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "SuperStar Lab — Lisanslı Sanatçı Merch Pazarı";
+export const alt = "StarLab — Lisanslı Sanatçı Merch Pazarı";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -39,7 +39,7 @@ export default function OpengraphImage() {
             S
           </div>
           <div style={{ display: "flex", fontSize: 34, fontWeight: 700 }}>
-            SuperStar<span style={{ color: "#7c3aed" }}>&nbsp;Lab</span>
+            Star<span style={{ color: "#7c3aed" }}>Lab</span>
           </div>
         </div>
 

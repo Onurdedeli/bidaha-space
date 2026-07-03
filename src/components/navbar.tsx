@@ -32,7 +32,7 @@ export function Navbar() {
         {/* wordmark */}
         <Link href="/" className="flex shrink-0 items-center gap-2">
           <StarIcon className="h-5 w-5 text-accent" />
-          <span className="font-display text-lg font-bold tracking-tight">Superstar Lab</span>
+          <span className="font-display text-lg font-bold tracking-tight">StarLab</span>
         </Link>
 
         {/* arama */}
