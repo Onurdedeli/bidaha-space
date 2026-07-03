@@ -40,7 +40,7 @@ export function Footer() {
             ["Tüm ürünler", "/magaza"],
             ["Sanatçılar", "/sanatcilar"],
             ["Anlar & Droplar", "/anlar"],
-            ["Deneyimler", "/#deneyimler"],
+            ["Abonelik Fırsatları", "/#firsatlar"],
           ]}
         />
         <FooterCol

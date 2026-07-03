@@ -39,42 +39,38 @@ export const heroSlides: HeroSlide[] = [
   },
 ];
 
-export interface ExperienceCardData {
+export interface PerkCardData {
   icon: string;
   title: string;
   description: string;
+  /** ayrıcalığın açıldığı üyelik seviyesi */
   tag: string;
-  price: number;
 }
 
-export const experiencesHome: ExperienceCardData[] = [
+export const subscriptionPerks: PerkCardData[] = [
   {
-    icon: "🎤",
-    title: "Backstage buluşma",
-    description: "Konser öncesi sahne arkasında sanatçıyla tanış, fotoğraf çektir.",
-    tag: "4 kontenjan",
-    price: 4500,
+    icon: "⚡",
+    title: "Fast Track",
+    description: "Konser girişinde öncelikli, hızlı geçiş hakkı — sırada beklemek yok.",
+    tag: "Encore & Backstage",
   },
   {
-    icon: "🎬",
-    title: "Kişiye özel video mesaj",
-    description: "İsmini söyleyerek sana özel kaydedilmiş kutlama videosu.",
-    tag: "Sınırlı",
-    price: 1850,
+    icon: "🍽️",
+    title: "Yemeklerde %10 İndirim",
+    description: "Anlaşmalı mekân ve etkinlik yemeklerinde üyelere özel %10 indirim.",
+    tag: "Tüm üyeler",
   },
   {
-    icon: "🎚️",
-    title: "Soundcheck pass",
-    description: "Kapılar açılmadan soundcheck'i izle, prova anına tanık ol.",
-    tag: "6 kontenjan",
-    price: 2400,
+    icon: "🎟️",
+    title: "Biletlerde Önduyuru ve İndirim",
+    description: "Konser biletleri herkese açılmadan sana duyurulur; üye indirimiyle al.",
+    tag: "Encore & Backstage",
   },
   {
-    icon: "✍️",
-    title: "İmzalı ürün",
-    description: "Sanatçı tarafından elle imzalanmış, numaralandırılmış özel ürün.",
-    tag: "Stokla sınırlı",
-    price: 1200,
+    icon: "⬆️",
+    title: "Biletini Upgrade Etme Fırsatı",
+    description: "Mevcut biletini uygun olduğunda daha iyi kategoriye yükseltme şansı.",
+    tag: "Backstage",
   },
 ];
 

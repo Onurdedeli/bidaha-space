@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { products, getProductsByArtist } from "@/lib/data";
 import { artists } from "@/lib/artists";
-import { heroSlides, experiencesHome, membershipTiers } from "@/lib/home";
+import { heroSlides, subscriptionPerks, membershipTiers } from "@/lib/home";
 import { ProductCard } from "@/components/cards";
 import { ArtistAvatar } from "@/components/artist-avatar";
 import { HeroCarousel } from "@/components/hero-carousel";
@@ -72,28 +72,27 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 5 · DENEYİMLER */}
-      <section id="deneyimler" className="mt-10 bg-bg-soft py-12 sm:py-16">
+      {/* 5 · ABONELİK FIRSATLARI */}
+      <section id="firsatlar" className="mt-10 bg-bg-soft py-12 sm:py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <div className="mb-6">
-            <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">Deneyimler</h2>
+            <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">Abonelik Fırsatları</h2>
             <p className="mt-1 max-w-2xl text-sm text-muted">
-              Sıradan bir mağaza değiliz — sanatçıyla gerçek anlar. Sınırlı kontenjanlı fan deneyimleri.
+              Üyeliğinle açılan ayrıcalıklar — hızlı geçişten bilet indirimlerine, sahnenin bir adım önünde ol.
             </p>
           </div>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {experiencesHome.map((e) => (
+            {subscriptionPerks.map((e) => (
               <div key={e.title} className="flex flex-col rounded-2xl border border-border bg-surface p-5">
                 <div className="grid h-11 w-11 place-items-center rounded-xl bg-accent/15 text-xl">
                   {e.icon}
                 </div>
                 <h3 className="mt-4 font-semibold">{e.title}</h3>
                 <p className="mt-1.5 flex-1 text-sm text-muted">{e.description}</p>
-                <div className="mt-4 flex items-center justify-between">
+                <div className="mt-4">
                   <span className="rounded-full bg-accent/15 px-2.5 py-0.5 text-[11px] font-semibold text-foreground">
                     {e.tag}
                   </span>
-                  <span className="text-sm font-bold">{formatTRY(e.price)}</span>
                 </div>
               </div>
             ))}
