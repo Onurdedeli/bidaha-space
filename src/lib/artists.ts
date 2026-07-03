@@ -58,19 +58,6 @@ export const artists: Artist[] = [
     accent: "#c8413c",
     image: "/artists/hayko-cepkin.jpg",
   },
-  {
-    slug: "fatma-turgut",
-    name: "Fatma Turgut",
-    genre: "Rock / Pop",
-    emoji: "🎶",
-    followers: 1_100_000,
-    members: 24_300,
-    tagline: "Güçlü vokal, alternatif rock ruhu.",
-    bio: "Kendine has sesi ve sahne duruşuyla sevilen bir solist. Özel koleksiyonları ve imzalı ürünleriyle hayranlarına yakın.",
-    verified: true,
-    accent: "#2fa597",
-    image: "/artists/fatma-turgut.jpg",
-  },
 ];
 
 export function getArtist(slug: string) {

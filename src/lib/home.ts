@@ -30,13 +30,6 @@ export const heroSlides: HeroSlide[] = [
     tag: "Yeni Drop",
     accent: "#c8413c",
   },
-  {
-    artistSlug: "fatma-turgut",
-    artist: "Fatma Turgut",
-    collectionTitle: "Fatma Turgut — Akustik koleksiyon",
-    tag: "İmzalı",
-    accent: "#2fa597",
-  },
 ];
 
 export interface PerkCardData {
