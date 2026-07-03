@@ -25,7 +25,7 @@ export function ItemImage({ emoji, className = "", size = "md", label, accent = 
     return (
       <div className={`relative overflow-hidden bg-surface-2 ${className}`}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={src} alt="" className="h-full w-full object-cover" />
+        <img src={src} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover" />
         {label && (
           <span className="absolute bottom-2 left-2 z-10 rounded-md bg-black/55 px-2 py-0.5 text-[10px] font-medium tracking-wide text-white/90 backdrop-blur">
             {label}

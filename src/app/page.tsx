@@ -9,7 +9,7 @@ import { ItemImage } from "@/components/item-image";
 import { formatTRY, formatCount } from "@/lib/format";
 
 export default function Home() {
-  const featured = products.filter((p) => p.featured).slice(0, 8);
+  const featured = products.filter((p) => p.featured);
   const collectionArtist = artists.find((a) => a.slug === "ajda-pekkan")!;
   const collection = getProductsByArtist(collectionArtist.name).slice(0, 6);
 

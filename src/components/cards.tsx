@@ -45,7 +45,7 @@ export function ProductCard({ product }: { product: Product }) {
       className="card-hover group flex flex-col overflow-hidden rounded-2xl border border-border bg-surface"
     >
       <div className="relative aspect-square">
-        <ItemImage emoji={product.image} accent={accent} size="lg" className="h-full w-full" />
+        <ItemImage emoji={product.image} accent={accent} src={product.photo} size="lg" className="h-full w-full" />
         {/* accent nokta */}
         <span
           className="absolute left-3 top-3 h-2.5 w-2.5 rounded-full ring-2 ring-white"

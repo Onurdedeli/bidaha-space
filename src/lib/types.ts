@@ -2,6 +2,7 @@ export type ProductCategory =
   | "tshirt"
   | "hoodie"
   | "sapka"
+  | "set"
   | "vinyl"
   | "photocard"
   | "lightstick"
@@ -30,6 +31,8 @@ export interface Product {
   compareAtPrice?: number;
   currency: "TRY";
   image: string;
+  /** gerçek ürün görseli (public/...) — varsa emoji yerine gösterilir */
+  photo?: string;
   gallery?: string[];
   badge?: string;
   description: string;

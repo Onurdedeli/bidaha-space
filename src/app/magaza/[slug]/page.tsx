@@ -46,6 +46,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
           <ItemImage
             emoji={product.image}
             accent={artist?.accent}
+            src={product.photo}
             size="lg"
             className="aspect-square w-full rounded-[var(--radius-card)] border border-border"
           />

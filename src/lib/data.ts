@@ -1,8 +1,10 @@
 import type { Product, Experience, ProductCategory } from "./types";
+import { designProducts } from "./design-products";
 
 export const PRODUCT_CATEGORIES: { value: ProductCategory; label: string; emoji: string }[] = [
   { value: "tshirt", label: "Tişört", emoji: "👕" },
   { value: "hoodie", label: "Sweat & Hoodie", emoji: "🧥" },
+  { value: "set", label: "Set & Paket", emoji: "🎁" },
   { value: "vinyl", label: "Plak", emoji: "💿" },
   { value: "photocard", label: "Photocard", emoji: "🎴" },
   { value: "lightstick", label: "Lightstick", emoji: "🪄" },
@@ -23,7 +25,7 @@ const models = (list: [string, number][]) =>
 
 const TSHIRT_SIZES = { XS: 8, S: 18, M: 30, L: 26, XL: 14, XXL: 6 };
 
-export const products: Product[] = [
+const baseProducts: Product[] = [
   // ── Manifest (pembe) ─────────────────────────────────────────
   {
     id: "p-man-tee",
@@ -232,7 +234,15 @@ export const products: Product[] = [
   },
 ];
 
-/** Deneyim katalogu (kart verisi homepage'de `experiencesHome` ile gösterilir). */
+/**
+ * Yayındaki tüm ürünler: gerçek görselli tasarım ürünleri öne çıkar (featured),
+ * ardından temel katalog (öne çıkanlarda tekrar olmasın diye featured kapalı).
+ */
+export const products: Product[] = [
+  ...designProducts,
+  ...baseProducts.map((p) => ({ ...p, featured: false })),
+];
+
 export const experiences: Experience[] = [];
 
 export const allItems = [...products, ...experiences];
